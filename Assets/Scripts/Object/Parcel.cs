@@ -7,8 +7,9 @@ public class Parcel : MonoBehaviour {
     private float speed = 20f;
     private float pickRange = 5f;
     private float mass = 10f;
+    private float radius = 0f;
 
-    public GameObject center;
+    public Player center;
     public Rigidbody2D rb;
     public GameObject pickupEffect;
 
@@ -17,6 +18,9 @@ public class Parcel : MonoBehaviour {
 
     void Start() {
         rb.mass = mass;
+        if (center != null) {
+            radius = center.GetDragRange();
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +35,19 @@ public class Parcel : MonoBehaviour {
                 float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotationModifier;
                 Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
                 transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
+
+                // Set drag limitation
+                Vector3 centerPosition = center.transform.localPosition; //center of *black circle*
+                Vector3 newLocation = transform.position; //*BlackCenter* + all that Math
+                float distance = Vector3.Distance(newLocation, centerPosition); //distance from ~green object~ to *black circle*
+
+                if (distance > radius) //If the distance is less than the radius, it is already within the circle.
+                {
+                    Vector3 fromOriginToObject = newLocation - centerPosition; //~GreenPosition~ - *BlackCenter*
+                    fromOriginToObject *= radius / distance; //Multiply by radius //Divide by Distance
+                    newLocation = centerPosition + fromOriginToObject; //*BlackCenter* + all that Math
+                    transform.position = newLocation;
+                }
             }
         }
 

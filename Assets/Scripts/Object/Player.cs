@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
     private float takeDamageCoolDown = 1f;
     private float recoverCoolDown = 1f;
     private float speed = 5f;
+    private float dragRange = 5f;
 
     public Rigidbody2D rb;
     public SpriteRenderer sr;
@@ -110,5 +111,9 @@ public class Player : MonoBehaviour {
         rb.velocity = new(0, 0);
         rb.bodyType = RigidbodyType2D.Static;
         sr.color = Color.black;
+    }
+
+    public float GetDragRange() {
+        return dragRange;
     }
 }
