@@ -11,11 +11,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - 
-  - 
+  - Map
+  - Object
   - 
   - 
   - 
@@ -43,4 +43,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2927340783
+    locked: 0
+  - name: Map
+    uniqueID: 1210557147
+    locked: 0
+  - name: Effect
+    uniqueID: 3250331781
+    locked: 0
+  - name: Object
+    uniqueID: 3276893349
     locked: 0
