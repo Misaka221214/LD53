@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour {
-    public GameObject enemy;
+    public GameObject meleeEnemy;
+    public GameObject rangeEnemy;
     public float respawnCooldown = 10f;
     public int spawnPerWave = 3;
 
     private float timer = 0f;
-    private bool isStarted = false;
 
     // Update is called once per frame
     void FixedUpdate() {
         timer -= Time.deltaTime;
 
-        if (timer <= 0f && MetaData.SPAWN_ENEMY) {
+        if (timer <= 0f) {
             timer = respawnCooldown;
 
-            if (isStarted) {
-                for (int i = 0; i < spawnPerWave; i++) {
-                    Instantiate(enemy, RandomPosition(), transform.rotation);
+            for (int i = 0; i < spawnPerWave; i++) {
+                if(Random.Range(0, 10) < 6) {
+                    Instantiate(meleeEnemy, RandomPosition(), transform.rotation);
+                } else {
+                    Instantiate(rangeEnemy, RandomPosition(), transform.rotation);
                 }
-            } else {
-                isStarted = true;
             }
         }
     }

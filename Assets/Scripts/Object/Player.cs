@@ -10,6 +10,11 @@ public class Player : MonoBehaviour {
     public float stamina = 2f;
     public bool isBurning = false;
     public bool isSwamped = false;
+    public GameObject shock;
+    public GameObject dummy;
+    public GameObject freeze;
+    public GameObject fire;
+    public GameObject reroll;
 
     private Vector2 direction = new Vector2(0, 0);
     private float takeDamageCounter = 0f;
@@ -21,10 +26,11 @@ public class Player : MonoBehaviour {
     private bool isRecovering = false;
     private bool isUsingRollingSkill = false;
     private bool isUsingSprintSkill = false;
-    private bool isUsingGrabGunSkill = false;
     private bool isInvinsible = false;
     private float resetColorCounter = 0f;
     private float burningCounter = 0f;
+    private float freezeCounter = 0f;
+    private float rerollCounter = 0f;
 
     // Start is called before the first frame update
     void Start() {
@@ -107,6 +113,14 @@ public class Player : MonoBehaviour {
         if (isBurning && burningCounter < 0f) {
             Burn();
         }
+
+        if (freeze.activeSelf && freezeCounter < 0f) {
+            freeze.SetActive(false);
+        }
+
+        if(reroll.activeSelf && rerollCounter < 0f) {
+            reroll.SetActive(false);
+        }
     }
 
     void Burn() {
@@ -128,6 +142,7 @@ public class Player : MonoBehaviour {
 
     void ExitSprint() {
         speed = MetaData.BASE_SPEED;
+        rb.mass = MetaData.PLAYER_MASS;
         playerSkillCounter = MetaData.SKILL_COOLDOWN;
         isUsingSprintSkill = false;
     }
@@ -141,11 +156,15 @@ public class Player : MonoBehaviour {
         rollingCounter -= Time.deltaTime;
         resetColorCounter -= Time.deltaTime;
         burningCounter -= Time.deltaTime;
+        freezeCounter -= Time.deltaTime;
+        rerollCounter -= Time.deltaTime;
     }
 
     void ExitRecover() {
+        direction = new(0, 0);
         takeDamageCounter = MetaData.TAKE_DAMAGE_COOLDOWN;
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.velocity = new(0, 0);
         sr.color = Color.white;
         isRecovering = false;
     }
@@ -167,6 +186,10 @@ public class Player : MonoBehaviour {
         if (collision.gameObject.CompareTag("Enemy") && !isRecovering && takeDamageCounter < 0f) {
             TakeStaminaDamage(collision.gameObject.GetComponent<Enemy>().GetDamage());
         }
+        if (collision.gameObject.CompareTag("Bullet") && !isRecovering && takeDamageCounter < 0f) {
+            TakeStaminaDamage(MetaData.BULLET_DAMAGE);
+            Destroy(collision.gameObject);
+        }
     }
 
     public void TakeStaminaDamage(float damage) {
@@ -186,7 +209,6 @@ public class Player : MonoBehaviour {
     }
 
     private void StayStill() {
-        rb.velocity = new(0, 0);
         rb.bodyType = RigidbodyType2D.Static;
         sr.color = Color.black;
     }
@@ -202,41 +224,59 @@ public class Player : MonoBehaviour {
                     rollingCounter = MetaData.ROLLING_TIME;
                     break;
                 case PlayerSkill.SPRINT:
-                    speed *= MetaData.SPRINT_MULTIPLIER;
+                    speed = MetaData.SPRINT_SPEED;
+                    rb.mass = MetaData.SPRINT_MASS;
                     isUsingSprintSkill = true;
                     sprintCounter = MetaData.SPRINT_TIME;
                     break;
                 case PlayerSkill.DUPLICATE:
+                    Instantiate(dummy, RandomPosition(), transform.rotation);
                     break;
                 case PlayerSkill.REROLL:
+                    rerollCounter = 0.5f;
+                    reroll.SetActive(true);
                     break;
-                case PlayerSkill.NONE:
                 default:
                     break;
             }
         }
     }
 
+    private Vector3 RandomPosition() {
+        return new Vector3(transform.position.x + Random.Range(-0.1f, 0.1f), transform.position.y + Random.Range(-0.1f, 0.1f), transform.position.z);
+    }
+
     void UseGrabGunSkill() {
         if (grabGunSkillCounter < 0f) {
             grabGunSkillCounter = MetaData.SKILL_COOLDOWN;
             switch (MetaData.GRAB_GUN_SKILL) {
-                case GrabGunSkill.SHOOTING:
-                    break;
                 case GrabGunSkill.ARCHI:
+                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Instantiate(fire, new Vector3(mousePos.x, mousePos.y, transform.position.z), transform.rotation);
                     break;
                 case GrabGunSkill.SHOCK:
+                    Instantiate(shock, transform.position, transform.rotation);
                     break;
                 case GrabGunSkill.FREEZE:
+                    freezeCounter = MetaData.FREEZE_COOLDOWN;
+                    freeze.SetActive(true);
                     break;
-                case GrabGunSkill.FACING:
-                    break;
-                case GrabGunSkill.GRAB:
-                case GrabGunSkill.NONE:
                 default:
                     break;
             }
         }
 
+    }
+
+    public void UpdateUpgrades(UpgradeType upgradeType) {
+        switch (upgradeType) {
+            case UpgradeType.SPEED:
+                speed = MetaData.BASE_SPEED;
+                break;
+            case UpgradeType.COOLDOWN:
+            case UpgradeType.DAMAGE:
+            default:
+                break;
+        }
     }
 }

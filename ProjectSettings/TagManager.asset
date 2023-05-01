@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Parcel
   - Obstacle
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,12 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2927340783
+    locked: 0
+  - name: Trap
+    uniqueID: 918666979
+    locked: 0
+  - name: Bullet
+    uniqueID: 649918417
     locked: 0
   - name: Map
     uniqueID: 1210557147

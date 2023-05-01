@@ -9,6 +9,7 @@ public class Parcel : MonoBehaviour {
     public bool isPickedUp = false;
 
     private float rotationModifier = 0f;
+    private float grabGunSkillCounter = 0f;
 
     void Start() {
         rb.mass = MetaData.PARCEL_MASS;
@@ -18,12 +19,13 @@ public class Parcel : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
+        Countdown();
         if (isPickedUp) {
             FollowCursor();
-        }
-
-        if (!isPickedUp && rb.velocity.magnitude < 1) {
-            FreezeParcel();
+        } else {
+            if (rb.velocity.magnitude < 1) {
+                FreezeParcel();
+            }
         }
     }
 
@@ -37,6 +39,28 @@ public class Parcel : MonoBehaviour {
                 }
             }
         }
+
+        if (Input.GetMouseButtonDown(1) && grabGunSkillCounter < 0f) {
+            if (isPickedUp) {
+                UseGrabGunSkill();
+            }
+        }
+    }
+
+    void UseGrabGunSkill() {
+        grabGunSkillCounter = MetaData.SKILL_COOLDOWN;
+
+        switch (MetaData.GRAB_GUN_SKILL) {
+            case GrabGunSkill.FACING:
+                rotationModifier += 90;
+                break;
+            default:
+                break;
+        }
+    }
+
+    void Countdown() {
+        grabGunSkillCounter -= Time.deltaTime;
     }
 
     bool IsWithinPickupRange() {
@@ -44,10 +68,6 @@ public class Parcel : MonoBehaviour {
             return Vector3.Distance(center.transform.position, transform.position) < MetaData.PARCEL_PICK_RANGE;
         }
         return false;
-    }
-
-    public float GetDamage() {
-        return MetaData.PARCEL_DAMAGE;
     }
 
     void DropParcel() {
@@ -107,6 +127,12 @@ public class Parcel : MonoBehaviour {
             fromOriginToObject *= MetaData.DRAG_RADIUS / distance; //Multiply by radius //Divide by Distance
             newLocation = centerPosition + fromOriginToObject; //*BlackCenter* + all that Math
             transform.position = newLocation;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Bullet")) {
+            Destroy(collision.gameObject);
         }
     }
 }

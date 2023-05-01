@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8298456845257016806
+--- !u!1 &9131327925816516354
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8298456845257016804}
-  - component: {fileID: 8298456845257016807}
+  - component: {fileID: 9131327925816516356}
+  - component: {fileID: 9131327925816516355}
   m_Layer: 0
-  m_Name: EnemySpawn
+  m_Name: Parcel Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8298456845257016804
+--- !u!4 &9131327925816516356
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8298456845257016806}
+  m_GameObject: {fileID: 9131327925816516354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.34, y: 6.39, z: -0.48201683}
+  m_LocalPosition: {x: 24.96, y: 33.62, z: -2.2802274}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8298456845257016807
+--- !u!114 &9131327925816516355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8298456845257016806}
+  m_GameObject: {fileID: 9131327925816516354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58baf20e2ce604ee7b964330e3bd8033, type: 3}
+  m_Script: {fileID: 11500000, guid: df340f202e39e4bdc92bb541be4b2f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1948587838099546984, guid: a253dbb4179154d10b72b6240800ec76, type: 3}
-  respawnCooldown: 10
-  spawnPerWave: 3
+  parcels:
+  - {fileID: 8231244534060814071, guid: 9bf79ca73fd3e44af9641f329fedcbca, type: 3}
+  - {fileID: 9028346681166191370, guid: b2209cb7fd65f4087ac091e9a4c7ce0c, type: 3}
+  - {fileID: 7716979613078921285, guid: 4c546dcecfde54d87bc174b1104434aa, type: 3}
+  - {fileID: 2268387477338001562, guid: 6cd0971b8007346499274a683547b4b2, type: 3}

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1018073947
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d7813eb98af9848e2ae97d5b61e660bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,14 +138,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8174ed3b8e6b489f909e8ae4753ac05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
+  bullet: {fileID: 0}
   target: {fileID: 0}
   center: {fileID: 0}
+  destroyEffect: {fileID: 8416904986546633876, guid: b479b2765339d4b48ab74c8294a69d65, type: 3}
   rb: {fileID: 1948587838099546985}
   sr: {fileID: 0}
   collider2d: {fileID: 0}
   pickupEffect: {fileID: 1948587838507763223}
   isBurning: 0
   isSwamped: 0
+  isPickedUp: 0
 --- !u!95 &1948587838099546994
 Animator:
   serializedVersion: 4
@@ -237,7 +241,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1044635515
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8ce64165c59384040b287f0c7fc6e350, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

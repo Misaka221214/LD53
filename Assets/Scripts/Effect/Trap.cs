@@ -14,6 +14,7 @@ public class Trap : MonoBehaviour {
                 SwampOnEnter(collision);
                 break;
             case TrapType.HOLE:
+                HoleOnEnter(collision);
                 break;
             case TrapType.NONE:
             default:
@@ -30,10 +31,24 @@ public class Trap : MonoBehaviour {
                 SwampOnExit(collision);
                 break;
             case TrapType.HOLE:
-                break;
             case TrapType.NONE:
             default:
                 break;
+        }
+    }
+
+    private void HoleOnEnter(Collider2D collision) {
+        GameObject holes = GameObject.Find("Holes");
+        Transform destination = holes.transform.GetChild(Random.Range(0, holes.transform.childCount));
+
+        Player enteringPlayer = collision.gameObject.GetComponent<Player>();
+        if (enteringPlayer) {
+            enteringPlayer.transform.position = destination.position;
+        }
+
+        Enemy enteringEnemy = collision.gameObject.GetComponent<Enemy>();
+        if (enteringEnemy) {
+            enteringEnemy.transform.position = destination.position;
         }
     }
 
