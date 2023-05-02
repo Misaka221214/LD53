@@ -1,7 +1,7 @@
 public static class MetaData {
     // Skills
     public static PlayerSkill PLAYER_SKILL = PlayerSkill.ROLLING;
-    public static GrabGunSkill GRAB_GUN_SKILL = GrabGunSkill.GRAB;
+    public static GrabGunSkill GRAB_GUN_SKILL = GrabGunSkill.SHOCK;
 
     // Upgrades
     public static float BASE_SPEED = 5f;

@@ -22,6 +22,7 @@ public class RewardManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         if (MetaData.HAS_SKILL_REWARD) {
+            SkillPanel.SetActive(true);
             playerSkill = Instantiate(playerSkills[Random.Range(0, playerSkills.Length)], playerSkillLocation.position, playerSkillLocation.rotation);
             grabGunSkill = Instantiate(grabGunSkills[Random.Range(0, grabGunSkills.Length)], grabGunSkillLocation.position, grabGunSkillLocation.rotation);
         }

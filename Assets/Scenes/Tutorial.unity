@@ -2524,7 +2524,7 @@ GameObject:
   - component: {fileID: 1517095767}
   - component: {fileID: 1517095769}
   m_Layer: 0
-  m_Name: TTRR6_1
+  m_Name: Z5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2571,7 +2571,7 @@ SpriteRenderer:
   m_SortingLayerID: 1210557147
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f09167efde23c4ecd97252bbb924f5d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3234bdd293e684228b20c8750fe7decb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2607,7 +2607,7 @@ Animator:
   m_GameObject: {fileID: 1517095766}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 875bd1a1a14ce4e438d6902b99d0dcc4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2f8fc070ebd724a6f9cc51725755b3ed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
