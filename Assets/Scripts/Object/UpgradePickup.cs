@@ -7,6 +7,7 @@ public class UpgradePickup : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.gameObject.CompareTag("Player")) {
+            collision.collider.gameObject.GetComponent<Player>().PlayGoodThing();
             switch (upgradeType) {
                 case UpgradeType.SPEED:
                     MetaData.BASE_SPEED *= 1.4f;

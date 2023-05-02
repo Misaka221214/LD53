@@ -2,8 +2,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
+    [SerializeField] private AudioSource click;
+
     public void GoToGameScene() {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        if (click) {
+            click.Play();
+        }
+        SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
     }
 
     public void QuitGame() {

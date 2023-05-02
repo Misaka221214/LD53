@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour {
     public TrapType trapType;
+    [SerializeField] AudioSource hole;
 
     private void OnTriggerEnter2D(Collider2D collision) {
         switch (trapType) {
@@ -43,6 +44,9 @@ public class Trap : MonoBehaviour {
 
         Player enteringPlayer = collision.gameObject.GetComponent<Player>();
         if (enteringPlayer) {
+            if (hole) {
+                hole.Play();
+            }
             enteringPlayer.transform.position = destination.position;
         }
 

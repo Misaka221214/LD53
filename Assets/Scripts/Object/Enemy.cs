@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     public EnemyType enemyType;
+    [SerializeField] private AudioSource peng;
+    [SerializeField] private AudioSource pick;
 
     public GameObject bullet;
     public GameObject target;
@@ -41,7 +43,7 @@ public class Enemy : MonoBehaviour {
         animator = GetComponent<Animator>();
         collider2d = GetComponent<Collider2D>();
 
-        if(enemyType == EnemyType.BOSS) {
+        if (enemyType == EnemyType.BOSS) {
             rb.mass = 5f;
         }
     }
@@ -77,7 +79,7 @@ public class Enemy : MonoBehaviour {
             ResetColorResetColorToWhite();
         }
 
-        if (isFrozen && freezeCounter < 0f){
+        if (isFrozen && freezeCounter < 0f) {
             isFrozen = false;
             sr.color = Color.white;
         }
@@ -111,6 +113,9 @@ public class Enemy : MonoBehaviour {
     }
 
     void PickupEnemy() {
+        if (pick) {
+            pick.Play();
+        }
         isPickedUp = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
         pickupEffect.SetActive(true);
@@ -135,7 +140,12 @@ public class Enemy : MonoBehaviour {
     public void SetFreeze() {
         isFrozen = true;
         freezeCounter = MetaData.ENEMY_FREEZE_COOLDOWN;
-        sr.color = Color.black;
+        if (rb) {
+            rb.velocity = new(0, 0);
+        }
+        if (sr) {
+            sr.color = Color.black;
+        }
     }
 
     void RotateEnemy() {
@@ -223,7 +233,7 @@ public class Enemy : MonoBehaviour {
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
-        if(takeDamageCounter < 0f) {
+        if (takeDamageCounter < 0f) {
             if (collision.gameObject.CompareTag("Parcel")) {
                 TakeDamage(MetaData.PARCEL_DAMAGE * MetaData.DAMAGE_MULTIPLIER);
             }
@@ -236,6 +246,14 @@ public class Enemy : MonoBehaviour {
             if (collision.gameObject.CompareTag("Bullet")) {
                 TakeDamage(6f);
                 Destroy(collision.gameObject);
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("Parcel") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player")) {
+            if (peng) {
+                peng.Play();
             }
         }
     }

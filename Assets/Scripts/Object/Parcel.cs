@@ -8,6 +8,9 @@ public class Parcel : MonoBehaviour {
     public GameObject pickupEffect;
     public bool isPickedUp = false;
 
+    [SerializeField] private AudioSource pickup;
+    [SerializeField] private AudioSource putdown;
+
     private float rotationModifier = 0f;
     private float grabGunSkillCounter = 0f;
 
@@ -71,6 +74,9 @@ public class Parcel : MonoBehaviour {
     }
 
     void DropParcel() {
+        if (putdown) {
+            putdown.Play();
+        }
         isPickedUp = false;
         pickupEffect.SetActive(false);
     }
@@ -91,6 +97,9 @@ public class Parcel : MonoBehaviour {
     }
 
     void PickupParcel() {
+        if (pickup) {
+            pickup.Play();
+        }
         isPickedUp = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
         gameObject.tag = "Parcel";

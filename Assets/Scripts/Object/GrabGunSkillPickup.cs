@@ -7,6 +7,7 @@ public class GrabGunSkillPickup : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.gameObject.CompareTag("Player")) {
+            collision.collider.gameObject.GetComponent<Player>().PlayGoodThing();
             MetaData.GRAB_GUN_SKILL = skillType;
             MetaData.PICKED_SKILL = true;
             Destroy(gameObject);

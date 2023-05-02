@@ -7,6 +7,7 @@ public class PlayerSkillPickup : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.gameObject.CompareTag("Player")) {
+            collision.collider.gameObject.GetComponent<Player>().PlayGoodThing();
             MetaData.PLAYER_SKILL = skillType;
             MetaData.PICKED_SKILL = true;
             Destroy(gameObject);

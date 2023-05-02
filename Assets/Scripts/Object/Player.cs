@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     private float speed = 5f;
+    [SerializeField] AudioSource goodThing;
+    [SerializeField] AudioSource rolling;
+    [SerializeField] AudioSource damaged;
 
     public Rigidbody2D rb;
     public SpriteRenderer sr;
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour {
     public GameObject freeze;
     public GameObject fire;
     public GameObject reroll;
+    public Animator animator;
 
     private Vector2 direction = new Vector2(0, 0);
     private float takeDamageCounter = 0f;
@@ -118,9 +122,13 @@ public class Player : MonoBehaviour {
             freeze.SetActive(false);
         }
 
-        if(reroll.activeSelf && rerollCounter < 0f) {
+        if (reroll.activeSelf && rerollCounter < 0f) {
             reroll.SetActive(false);
         }
+    }
+
+    public void PlayGoodThing() {
+        goodThing.Play();
     }
 
     void Burn() {
@@ -165,7 +173,8 @@ public class Player : MonoBehaviour {
         takeDamageCounter = MetaData.TAKE_DAMAGE_COOLDOWN;
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.velocity = new(0, 0);
-        sr.color = Color.white;
+        //sr.color = Color.white;
+        animator.Play("Player_idle");
         isRecovering = false;
     }
 
@@ -184,9 +193,15 @@ public class Player : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Enemy") && !isRecovering && takeDamageCounter < 0f) {
+            if (damaged) {
+                damaged.Play();
+            }
             TakeStaminaDamage(collision.gameObject.GetComponent<Enemy>().GetDamage());
         }
         if (collision.gameObject.CompareTag("Bullet") && !isRecovering && takeDamageCounter < 0f) {
+            if (damaged) {
+                damaged.Play();
+            }
             TakeStaminaDamage(MetaData.BULLET_DAMAGE);
             Destroy(collision.gameObject);
         }
@@ -210,7 +225,8 @@ public class Player : MonoBehaviour {
 
     private void StayStill() {
         rb.bodyType = RigidbodyType2D.Static;
-        sr.color = Color.black;
+        //sr.color = Color.black;
+        animator.Play("Player_recover");
     }
 
     void UsePlayerSkill() {
@@ -218,12 +234,18 @@ public class Player : MonoBehaviour {
             playerSkillCounter = MetaData.SKILL_COOLDOWN;
             switch (MetaData.PLAYER_SKILL) {
                 case PlayerSkill.ROLLING:
+                    if (rolling) {
+                        rolling.Play();
+                    }
                     isInvinsible = true;
                     speed *= MetaData.ROLLING_MULTIPLIER;
                     isUsingRollingSkill = true;
                     rollingCounter = MetaData.ROLLING_TIME;
                     break;
                 case PlayerSkill.SPRINT:
+                    if (rolling) {
+                        rolling.Play();
+                    }
                     speed = MetaData.SPRINT_SPEED;
                     rb.mass = MetaData.SPRINT_MASS;
                     isUsingSprintSkill = true;

@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelManager : MonoBehaviour {
     public int deliveredParcel = 0;
     public int level;
     public GameObject[] patterns;
+    public TMP_Text textComponent;
 
     private float timer = 99f;
 
@@ -27,7 +29,18 @@ public class LevelManager : MonoBehaviour {
         timer -= Time.deltaTime;
         if (DeliveredAllParcel()) {
             MetaData.HAS_SKILL_REWARD = timer > 0f;
+
+            if (level == 0) {
+                MetaData.PICKED_UPGRADE = false;
+                MetaData.HAS_SKILL_REWARD = true;
+            }
             SceneManager.LoadScene("CollectReward", LoadSceneMode.Single);
+        }
+    }
+
+    private void Update() {
+        if (textComponent) {
+            textComponent.text = "" + (timer >= 0f ? (int)timer : 0);
         }
     }
 
@@ -70,6 +83,9 @@ public class LevelManager : MonoBehaviour {
 
     private void SetNextLevel() {
         switch (level) {
+            case 0:
+                MetaData.LEVEL_TO_BE_LOADED = "Level1";
+                break;
             case 1:
                 MetaData.LEVEL_TO_BE_LOADED = "Level2";
                 break;
