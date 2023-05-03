@@ -6,7 +6,7 @@ public static class MetaData {
     // Upgrades
     public static float BASE_SPEED = 5f;
     public static float MAX_STAMINA = 10f;
-    public static float DAMAGE_MULTIPLIER = 1f;
+    public static float DAMAGE_UPGRADE = 0f;
     public static float SKILL_COOLDOWN = 5f;
 
     // Static Data

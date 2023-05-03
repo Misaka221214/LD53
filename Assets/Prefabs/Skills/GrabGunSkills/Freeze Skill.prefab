@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 727903045785175987}
   m_Layer: 0
   m_Name: Freeze Skill
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 4
-  sound: {fileID: 727903045785175987}
 --- !u!58 &7361983319961723050
 CircleCollider2D:
   m_ObjectHideFlags: 0

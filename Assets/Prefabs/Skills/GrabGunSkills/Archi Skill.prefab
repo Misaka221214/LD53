@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 2327763949293953921}
   m_Layer: 0
   m_Name: Archi Skill
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 2
-  sound: {fileID: 2327763949293953921}
 --- !u!58 &6766291404094684926
 CircleCollider2D:
   m_ObjectHideFlags: 0

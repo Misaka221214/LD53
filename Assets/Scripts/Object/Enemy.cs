@@ -235,7 +235,7 @@ public class Enemy : MonoBehaviour {
     private void OnCollisionStay2D(Collision2D collision) {
         if (takeDamageCounter < 0f) {
             if (collision.gameObject.CompareTag("Parcel")) {
-                TakeDamage(MetaData.PARCEL_DAMAGE * MetaData.DAMAGE_MULTIPLIER);
+                TakeDamage(MetaData.PARCEL_DAMAGE + MetaData.DAMAGE_UPGRADE);
             }
             if (collision.gameObject.CompareTag("Enemy")) {
                 Enemy e = collision.gameObject.GetComponent<Enemy>();

@@ -8,6 +8,7 @@ TagManager:
   - Parcel
   - Obstacle
   - Bullet
+  - Buff
   layers:
   - Default
   - TransparentFX

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6101271309033340505}
   m_Layer: 0
   m_Name: Shock Skill
-  m_TagString: Untagged
+  m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 3
-  sound: {fileID: 6101271309033340505}
 --- !u!58 &3454940293067953076
 CircleCollider2D:
   m_ObjectHideFlags: 0

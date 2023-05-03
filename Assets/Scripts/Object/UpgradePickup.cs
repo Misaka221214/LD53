@@ -13,7 +13,7 @@ public class UpgradePickup : MonoBehaviour {
                     MetaData.BASE_SPEED *= 1.4f;
                     break;
                 case UpgradeType.DAMAGE:
-                    MetaData.DAMAGE_MULTIPLIER += 3;
+                    MetaData.DAMAGE_UPGRADE += 3;
                     break;
                 case UpgradeType.COOLDOWN:
                     MetaData.SKILL_COOLDOWN -= 1;

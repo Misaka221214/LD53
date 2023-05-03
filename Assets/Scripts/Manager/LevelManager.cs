@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour {
                 MetaData.PICKED_UPGRADE = false;
                 MetaData.HAS_SKILL_REWARD = true;
             }
-            SceneManager.LoadScene("CollectReward", LoadSceneMode.Single);
+            SceneManager.LoadScene("CollectReward");
         }
     }
 

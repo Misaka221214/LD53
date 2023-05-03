@@ -10,7 +10,7 @@ public class NextLevelStepper : MonoBehaviour {
         if (collision.gameObject.CompareTag("Player")) {
             if (MetaData.LEVEL_TO_BE_LOADED != "") {
                 hole.Play();
-                SceneManager.LoadScene(MetaData.LEVEL_TO_BE_LOADED, LoadSceneMode.Single);
+                SceneManager.LoadScene(MetaData.LEVEL_TO_BE_LOADED);
             }
         }
     }

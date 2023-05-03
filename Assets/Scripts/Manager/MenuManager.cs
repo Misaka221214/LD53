@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour {
         if (click) {
             click.Play();
         }
-        SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void QuitGame() {
